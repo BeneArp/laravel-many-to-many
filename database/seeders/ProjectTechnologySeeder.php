@@ -18,6 +18,8 @@ class ProjectTechnologySeeder extends Seeder
             $project = Project::inRandomOrder()->first();
 
             $technology_id = Technology::inRandomOrder()->first()->id;
+
+            $project->technologies()->attach($technology_id);
         }
     }
 }
