@@ -27,7 +27,8 @@
                     <option value="">Seleziona una tipologia</option>
 
                     @foreach ($types as $type)
-                       <option value="{{ $type->id }}" @if(old('type_id') === $type->id) selected @endif>
+                       <option value="{{ $type->id }}"
+                            @if($project->type->id == $type->id) selected @endif>
                             {{ $type->name }}
                         </option>
                     @endforeach
@@ -37,7 +38,7 @@
 
             <div class="mb-3">
                 <label for="start_date" class="form-label">Titolo</label>
-                <input type="date" class="form-control @error('start_date') is-invalid @enderror" id="start_date" name="start_date" value="{{old('start_date', $project->start_date)}}">
+                <input type="date" class="form-control @error('start_date') is-invalid @enderror" id="start_date" name="start_date" value="{{ old('start_date', $project->start_date) }}">
                 @error('start_date')
                   <small class="invalid-feedback">{{$message}}</small>
                 @enderror
