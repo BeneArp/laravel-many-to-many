@@ -8,6 +8,7 @@ use App\Models\Project;
 use App\Http\Requests\ProjectRequest;
 use App\Functions\Helper;
 use App\Models\Type;
+use App\Models\Technology;
 
 class ProjectController extends Controller
 {
@@ -27,8 +28,9 @@ class ProjectController extends Controller
     public function create()
     {
         $types = Type::all();
+        $technologies = Technology::orderBy('name')->get();
 
-        return view('admin.projects.create', compact('types'));
+        return view('admin.projects.create', compact('types', 'technologies'));
     }
 
     /**
@@ -39,10 +41,13 @@ class ProjectController extends Controller
         $data = $request->all();
         $data['slug'] = Helper::generateSlug($data['title'], Project::class);
 
-        $new_project = new Project;
+        $new_project = Project::create($data);
 
-        $new_project->fill($data);
-        $new_project->save();
+        $new_project->technologies()->attach($data['technologies']);
+        // $new_project = new Project;
+
+        // $new_project->fill($data);
+        // $new_project->save();
 
         return redirect()->route('admin.projects.show', $new_project);
     }

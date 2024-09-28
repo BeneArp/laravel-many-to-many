@@ -33,8 +33,10 @@
                         </option>
                     @endforeach
 
-                  </select>
+                </select>
             </div>
+
+
 
             <div class="mb-3">
                 <label for="start_date" class="form-label">Data d'inizio</label>
