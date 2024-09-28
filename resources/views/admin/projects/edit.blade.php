@@ -13,6 +13,7 @@
 
             @method('PUT')
 
+            {{-- titolo --}}
             <div class="mb-3">
               <label for="title" class="form-label">Titolo</label>
               <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" value="{{old('title', $project->title)}}">
@@ -21,6 +22,7 @@
               @enderror
             </div>
 
+            {{-- tipologia --}}
             <div class="mb-3">
                 <label for="type" class="form-label">Tipologia</label>
                 <select class="form-select" aria-label="Default select example" name="type_id" id="type">
@@ -28,7 +30,7 @@
 
                     @foreach ($types as $type)
                        <option value="{{ $type->id }}"
-                            @if($project->type->id == $type->id) selected @endif>
+                            @if($project->type?->id == $type->id) selected @endif>
                             {{ $type->name }}
                         </option>
                     @endforeach
@@ -37,7 +39,33 @@
             </div>
 
 
+            {{-- tecnologie --}}
+            <div class="mb-3">
+                <label for="title" class="form-label">Tecnologie</label>
 
+                @foreach ($technologies as $technology)
+
+                <div class="form-check">
+
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      value="{{$technology->id}}"
+                      id="technology-{{$technology->id}}"
+                      name="technologies[]"
+                      @checked($project->technologies->contains($technology))
+                      >
+                    <label class="form-check-label" for="technology-{{$technology->id}}">
+                    {{$technology->name}}
+                    </label>
+
+                </div>
+
+                @endforeach
+            </div>
+
+
+            {{-- data d'inizio --}}
             <div class="mb-3">
                 <label for="start_date" class="form-label">Data d'inizio</label>
                 <input type="date" class="form-control @error('start_date') is-invalid @enderror" id="start_date" name="start_date" value="{{ old('start_date', $project->start_date) }}">
@@ -46,6 +74,7 @@
                 @enderror
             </div>
 
+            {{-- data fine --}}
             <div class="mb-3">
                 <label for="end_date" class="form-label">Data di fine</label>
                 <input type="date" class="form-control @error('end_date') is-invalid @enderror" id="end_date" name="end_date" value="{{old('end_date', $project->end_date)}}">
@@ -54,6 +83,7 @@
                 @enderror
             </div>
 
+            {{-- descrizione --}}
             <div class="mb-3">
                 <label for="description" class="form-label">Descrizione</label>
                 <textarea class="form-control @error('description') is-invalid @enderror" id="description" rows="3" name="description">{{old('description', $project->description)}}</textarea>
@@ -62,6 +92,7 @@
                 @enderror
             </div>
 
+            {{-- bottone invio --}}
             <button type="submit" class="btn btn-primary">Submit</button>
 
         </form>

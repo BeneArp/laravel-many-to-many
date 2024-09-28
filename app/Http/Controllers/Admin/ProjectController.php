@@ -69,8 +69,9 @@ class ProjectController extends Controller
     {
         $project = Project::find($id);
         $types = Type::all();
+        $technologies = Technology::orderBy('name')->get();
 
-        return view('admin.projects.edit', compact('project', 'types'));
+        return view('admin.projects.edit', compact('project', 'types', 'technologies'));
     }
 
     /**
@@ -82,8 +83,10 @@ class ProjectController extends Controller
         $data['slug'] = Helper::generateSlug($data['title'], Project::class);
 
         $update_project = Project::find($id);
+        $update_project->technologies()->sync($data['technologies']);
 
         $update_project->fill($data);
+
         $update_project->save();
 
         return redirect()->route('admin.projects.show', $update_project);
