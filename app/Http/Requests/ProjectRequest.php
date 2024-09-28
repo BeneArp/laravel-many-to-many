@@ -24,8 +24,9 @@ class ProjectRequest extends FormRequest
         return [
             'title' => 'required|min:3',
             'description' => 'required|min:10',
-            'start_date' => 'required|after:yesterday',
+            'start_date' => 'required',
             'end_date' => 'after:start_date',
+            'type_id' => 'exists:types,id'
         ];
     }
 
@@ -37,8 +38,8 @@ class ProjectRequest extends FormRequest
             'description.required' => 'La descrizione è un campo obbligatorio',
             'description.min' => 'La descrizione deven contenere almeno :min caratteri',
             'start_date.required' => "La data d'inizio è un campo obbligatorio",
-            'start_date.after' => "La data d'inizio deve non può essere precedente ad oggi",
             'end_date.after' => "La data di fine deve essere successiva a quella d'inizio",
+            'type_id' => 'La tipologia selezionata è inesistente'
         ];
     }
 }
