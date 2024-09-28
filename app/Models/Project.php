@@ -15,7 +15,9 @@ class Project extends Model
         'start_date',
         'end_date',
         'description',
-        'slug'
+        'slug',
+        'img_path',
+        'img_original_name'
     ];
 
     protected $casts = [

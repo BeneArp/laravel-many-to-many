@@ -8,7 +8,7 @@
 
     <div>
 
-        <form action="{{route('admin.projects.store')}}" method="POST">
+        <form action="{{route('admin.projects.store')}}" method="POST" enctype="multipart/form-data">
             @csrf
 
             {{-- titolo --}}
@@ -67,6 +67,12 @@
                 @error('end_date')
                   <small class="invalid-feedback">{{$message}}</small>
                 @enderror
+            </div>
+
+            {{-- immagine --}}
+            <div class="mb-3">
+                <label for="img_path" class="form-label">Inserisci un'immagine</label>
+                <input class="form-control" type="file" id="img_path" name="img_path">
             </div>
 
             {{-- descrizione --}}

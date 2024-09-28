@@ -27,7 +27,8 @@ class ProjectRequest extends FormRequest
             'start_date' => 'required',
             'end_date' => 'after:start_date',
             'type_id' => 'exists:types,id',
-            'technologies' => 'exists:technologies,id'
+            'technologies' => 'exists:technologies,id',
+            'img' => 'extensions:jpg,png'
         ];
     }
 
@@ -41,7 +42,8 @@ class ProjectRequest extends FormRequest
             'start_date.required' => "La data d'inizio è un campo obbligatorio",
             'end_date.after' => "La data di fine deve essere successiva a quella d'inizio",
             'type_id' => 'La tipologia selezionata è inesistente',
-            'technologies' => 'Le tecnologie selezionate non esistono'
+            'technologies' => 'Le tecnologie selezionate non esistono',
+            'img.extensions' => 'Il file caricato deve essere di tipo .jpg o .png'
         ];
     }
 }

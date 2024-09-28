@@ -9,6 +9,7 @@ use App\Http\Requests\ProjectRequest;
 use App\Functions\Helper;
 use App\Models\Type;
 use App\Models\Technology;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
@@ -39,11 +40,24 @@ class ProjectController extends Controller
     public function store(ProjectRequest $request)
     {
         $data = $request->all();
+        // dd($data);
         $data['slug'] = Helper::generateSlug($data['title'], Project::class);
+
+        if(array_key_exists('img_path', $data)){
+
+            $img = Storage::put('uploads', $data['img_path']);
+
+            $img_original_name = $request->file('img_path')->getClientOriginalName();
+
+            $data['img_path'] = $img;
+            $data['img_original_name'] = $img_original_name;
+
+        }
 
         $new_project = Project::create($data);
 
         $new_project->technologies()->attach($data['technologies']);
+
         // $new_project = new Project;
 
         // $new_project->fill($data);
