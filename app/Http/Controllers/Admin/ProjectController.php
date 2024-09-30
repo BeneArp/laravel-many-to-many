@@ -99,6 +99,17 @@ class ProjectController extends Controller
         $update_project = Project::find($id);
         $update_project->technologies()->sync($data['technologies']);
 
+        if(array_key_exists('img_path', $data)){
+
+            $img = Storage::put('uploads', $data['img_path']);
+
+            $img_original_name = $request->file('img_path')->getClientOriginalName();
+
+            $data['img_path'] = $img;
+            $data['img_original_name'] = $img_original_name;
+
+        }
+
         $update_project->fill($data);
 
         $update_project->save();

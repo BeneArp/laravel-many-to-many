@@ -8,7 +8,7 @@
 
     <div>
 
-        <form action="{{ route('admin.projects.update', $project) }}" method="POST">
+        <form action="{{ route('admin.projects.update', $project) }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             @method('PUT')
@@ -81,6 +81,16 @@
                 @error('end_date')
                   <small class="invalid-feedback">{{$message}}</small>
                 @enderror
+            </div>
+
+            {{-- immagine --}}
+            <div class="mb-3">
+                <label for="img_path" class="form-label">Inserisci un'immagine</label>
+                <input class="form-control" type="file" id="img_path" name="img_path">
+                @error('img_path')
+                  <small class="invalid-feedback">{{$message}}</small>
+                @enderror
+                <img class="thumb" src="{{asset('storage/' . $project->img_path)}}" onerror="this.src='/img/placeholder.jpg'" alt="{{$project->img_original_name}}" >
             </div>
 
             {{-- descrizione --}}

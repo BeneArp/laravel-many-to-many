@@ -7,6 +7,7 @@
     <thead>
       <tr>
         <th scope="col">#Id</th>
+        <th scope="col">Copertina</th>
         <th scope="col">Titolo</th>
         <th scope="col">Descrizione</th>
         <th scope="col">Data Inizio</th>
@@ -20,11 +21,25 @@
 
         @foreach ($projects as $project)
             <tr>
+                {{-- id --}}
                 <th scope="row">{{$project->id}}</th>
+
+                {{-- immagine --}}
+                <td><img class="thumb" src="{{asset('storage/' . $project->img_path)}}" onerror="this.src='/img/placeholder.jpg'" alt="{{$project->img_original_name}}" ></td>
+
+                {{-- titolo --}}
                 <td>{{$project->title}}</td>
+
+                {{-- descrizione --}}
                 <td>{{$project->description}}</td>
+
+                {{-- data d'inizio --}}
                 <td>{{ ($project->start_date )->format('d/m/Y') }}</td>
+
+                {{-- data fine --}}
                 <td>{{ ($project->end_date)->format('d/m/Y') }}</td>
+
+                {{-- tipologia --}}
                 <td>{{ ($project->type ? $project->type->name : '-') }}</td>
                 <td>
                     <a href="{{route('admin.projects.show', $project)}}" class="btn btn-primary"><i class="fa-solid fa-eye"></i></a>

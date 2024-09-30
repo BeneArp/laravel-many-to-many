@@ -73,6 +73,9 @@
             <div class="mb-3">
                 <label for="img_path" class="form-label">Inserisci un'immagine</label>
                 <input class="form-control" type="file" id="img_path" name="img_path">
+                @error('img_path')
+                  <small class="invalid-feedback">{{$message}}</small>
+                @enderror
             </div>
 
             {{-- descrizione --}}
